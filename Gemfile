@@ -20,6 +20,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "annotate"
   gem "web-console"
   gem "pry-rails"
   gem "binding_of_caller"
