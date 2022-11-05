@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to 'Private Events', root_path, class: 'navbar-brand' %>
+        </li>
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "#{current_user.username}'s Events (WIP)", root_path, class: 'btn btn-outline-dark btn-sm' %>
+          </li>
+        <% end %>
+      </ul>
+
+      <ul class="nav justify-content-end gap-1">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "Create Event", new_event_path, class: 'btn btn-outline-dark btn-sm' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Profile: #{current_user.username}", user_path(current_user), class: 'btn btn-outline-dark btn-sm'%>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Settings", edit_user_registration_path, class: 'btn btn-outline-dark btn-sm'%>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Log Out", destroy_user_session_path, data: { turbo_method: :delete }, class: 'btn btn-outline-dark btn-sm'%>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Log in / Sign up", new_user_session_path, class: 'btn btn-outline-dark btn-sm'%>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

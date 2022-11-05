@@ -19,5 +19,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :events
-  has_many :attending_events
+  has_many :invitations
 end

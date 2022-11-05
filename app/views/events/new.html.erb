@@ -1,0 +1,25 @@
+<%= form_with model: @event do |f| %>
+  <div class="field">
+    <%= f.label :name, "Event Name" %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :location %>
+    <%= f.text_field :location %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date %>
+    <%= f.date_field :date %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Create Event" %>
+  </div>
+<% end %>

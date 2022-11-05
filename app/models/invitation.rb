@@ -9,5 +9,6 @@
 #  updated_at  :datetime         not null
 #
 class Invitation < ApplicationRecord
-  
+  belongs_to :event
+  belongs_to :attendee, foreign_key: :attendee_id, class_name: 'User'
 end

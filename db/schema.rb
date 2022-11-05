@@ -19,19 +19,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_04_204600) do
     t.string "description"
     t.string "location"
     t.date "date"
-    t.bigint "creator_id"
+    t.integer "creator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["creator_id"], name: "index_events_on_creator_id"
   end
 
   create_table "invitations", force: :cascade do |t|
-    t.bigint "event_id"
-    t.bigint "attendee_id"
+    t.integer "event_id"
+    t.integer "attendee_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["attendee_id"], name: "index_invitations_on_attendee_id"
-    t.index ["event_id"], name: "index_invitations_on_event_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -45,6 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_04_204600) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "events", "users", column: "creator_id"

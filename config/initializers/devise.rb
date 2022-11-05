@@ -8,10 +8,6 @@
 #
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
-
-# Turbo doesn't work with devise by default.
-# Keep tabs on https://github.com/heartcombo/devise/issues/5446 for a possible fix
-# Fix from https://gorails.com/episodes/devise-hotwire-turbo
 class TurboFailureApp < Devise::FailureApp
   def respond
     if request_format == :turbo_stream
@@ -32,7 +28,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '73feb75250246b8cba63c0778a16d1b824035cb03de7bd646806ff461d0e1b1e96164932ad3e4b3d351871d0c8de840f8a42293d4a596f6b0991fe711a86743a'
+  # config.secret_key = '6818550c6d55aa74d91501ab2f7e783abf48d931ed5eca9cff4ab42ebf877dc68e5cde0299cdc77d4b7315c103fb84a8310cacd710b19bbc7ee73900cd3e3194'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -144,7 +140,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = 'b968dfb9142a666d8eab79d4ed5a21c2b56a58d3abe0486d048ba06439d6f62215dffee713459bf1633c7ef862a9f3662857ef7473a7660eadb49fb47048d987'
+  # config.pepper = '81bfe3fe6b6a28c5d207f74055af54904dce62df5f61262a39612d7adf84561e67b4dc232a999e3b8001142dc133543ad51ff28914dfd0258ac22f785a8d8cd6'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
