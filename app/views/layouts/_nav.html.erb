@@ -8,15 +8,10 @@
         <li class="nav-item">
           <%= link_to 'Private Events', root_path, class: 'navbar-brand' %>
         </li>
-        <% if user_signed_in? %>
-          <li class="nav-item">
-            <%= link_to "#{current_user.username}'s Events (WIP)", root_path, class: 'btn btn-outline-dark btn-sm' %>
-          </li>
-        <% end %>
       </ul>
 
       <ul class="nav justify-content-end gap-1">
-        <% if user_signed_in? %>
+        <% if current_user %>
           <li class="nav-item">
             <%= link_to "Create Event", new_event_path, class: 'btn btn-outline-dark btn-sm' %>
           </li>

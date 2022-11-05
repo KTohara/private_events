@@ -1,0 +1,12 @@
+<% @events.each do |event| %>
+  <div class="list-group">
+    <%= link_to event_url(event), class: "mb-2 list-group-item list-group-item-action" do %>
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-2"><%= event.name %></h5>
+        <small><%= event.formatted_date %></small>
+      </div>
+      <p class="mb-1">Location: <%= event.location %></p>
+      <small>Description: <%= event.description.truncate(40) %></small>
+    <% end %>
+  </div>
+<% end %>

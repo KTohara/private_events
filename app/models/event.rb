@@ -12,7 +12,11 @@
 #  updated_at  :datetime         not null
 #
 class Event < ApplicationRecord
-  belongs_to :creator, foreign_key: :creator_id, class_name: 'User'
+  belongs_to :host, foreign_key: :creator_id, class_name: 'User'
   has_many :invitations
-  has_many :attendees, foreign_key: :attendee_id, class_name: 'Invitation'
+  has_many :attendees, through: :invitations
+
+  def formatted_date
+    date.strftime("%a. %b %d %Y")
+  end
 end

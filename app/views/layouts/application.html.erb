@@ -14,7 +14,7 @@
 
   <body>
     <% unless devise_controller? %>
-      <%= render 'events/nav' %>
+      <%= render 'layouts/nav' %>
     <% end %>
     <% if notice %>
       <p class="alert alert-success"><%= notice %></p>
