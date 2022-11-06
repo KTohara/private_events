@@ -1,14 +1,25 @@
-<% events.each do |event| %>
-  <div class="col mb-2">
+<% if events.empty? %>
+  <div class="col m-1">
     <div class="list-group">
-      <%= link_to event_url(event), class: "mb-2 list-group-item list-group-item-action" do %>
+      <div class="list-group-item">
+        <p class="mb-2"><%= current_user.username.titleize %> has not made any events!</p>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% events.each do |event| %>
+  <div class="col m-1">
+    <div class="list-group">
+      <%= link_to event_url(event), class: "list-group-item list-group-item-action" do %>
         <div class="d-flex w-100 justify-content-between">
           <p class="h5 mb-2 fw-bold"><%= event.name %></p>
-          <small><%= event.formatted_date %></small>
+          <small><%= event.time_to_event %></small>
         </div>
         <p class="mb-1">Location: <%= event.location %></p>
+        <p class="mb-1"><small><%= event.formatted_date %></small></p>
         <p class="mb-1"><small>Host: <%= event.host.username.titleize %></small></p>
-        <small>Description: <%= event.description.truncate(40) %></small>
+        <small>Description: <%= event.description.truncate_words(10) %></small>
       <% end %>
     </div>
   </div>

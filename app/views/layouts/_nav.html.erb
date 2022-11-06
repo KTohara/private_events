@@ -1,34 +1,21 @@
-<nav class="navbar navbar-expand-lg bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light py-3">
   <div class="container">
+    <%= link_to 'Private Events', root_path, class: 'navbar-brand fw-bold mr-5' %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse ml-5" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <%= link_to 'Private Events', root_path, class: 'navbar-brand fw-bold' %>
-        </li>
-      </ul>
-
-      <ul class="nav justify-content-end gap-1">
-        <% if user_signed_in? %>
+        <% if current_user %>
           <li class="nav-item">
-            <%= link_to "Create Event", new_event_path, class: 'btn btn-outline-dark btn-sm' %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Profile: #{current_user.username}", user_path(current_user), class: 'btn btn-outline-dark btn-sm'%>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Settings", edit_user_registration_path, class: 'btn btn-outline-dark btn-sm'%>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Log Out", destroy_user_session_path, data: { turbo_method: :delete }, class: 'btn btn-outline-dark btn-sm'%>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "Log in / Sign up", new_user_session_path, class: 'btn btn-outline-dark btn-sm'%>
+            <%= link_to "Create Event", new_event_path, class: 'nav-link' %>
           </li>
         <% end %>
+      </ul>
+
+      <ul class="navbar-nav">
+        <%= render 'layouts/nav_notifications' %>
+        <%= render 'layouts/nav_session_manager' %>
       </ul>
     </div>
   </div>

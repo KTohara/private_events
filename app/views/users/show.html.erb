@@ -1,7 +1,7 @@
 <div class="mx-5 mb-3">
   <h3><%= @user.username.titleize %>'s Events</h3>
 </div>
-<p class="mx-5 fs-5">Created <%= pluralize(@user.events.count, 'event').upcase %></p>
+<p class="mx-5 fs-5">Created <%= pluralize(@user.events.count, 'Event' ) %></p>
 <% if @user.events.empty? %>
   <div class="list-group mx-5">
     <p class="list-group-item"><%= @user.username.titleize %> has not made any events yet.</p>
@@ -12,13 +12,24 @@
   </div>
 <% end %>
 
-<p class="mx-5 fs-5">Attended <%= pluralize(@user.attending_events.count, 'event').upcase %></p>
+<p class="mx-5 fs-5">Currently Attending <%= pluralize(@user.attending_events.count, 'Event') %></p>
+<% if @user.attending_events.empty? %>
+  <div class="list-group mx-5">
+    <p class="list-group-item"><%= @user.username.titleize %> has not attended any events yet.</p>
+  </div>
+<% else %>
+  <div class="mx-5">
+    <%= render 'events/events_list', events: @user.attending_events.future %>
+  </div>
+<% end %>
+
+<p class="mx-5 fs-5">Attended <%= pluralize(@user.attending_events.past.count, 'Past Event') %></p>
 <% if @user.attending_events.past.empty? %>
   <div class="list-group mx-5">
     <p class="list-group-item"><%= @user.username.titleize %> has not attended any events yet.</p>
   </div>
 <% else %>
   <div class="mx-5">
-    <%= render 'events/events_list', events: @user.events %>
+    <%= render 'events/events_list', events: @user.attending_events.past %>
   </div>
 <% end %>

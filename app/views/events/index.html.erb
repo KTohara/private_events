@@ -2,7 +2,7 @@
   <div class="card">
     <ul class="mt-3 nav nav-tabs" id="nav-tab" role="tablist">
       <li class="ms-3 nav-item" role="presentation">
-        <button class="nav-link active" id="all-events-tab" data-bs-toggle="tab" data-bs-target="#all-events-tab-pane" type="button" role="tab" aria-controls="all-events-tab-pane" aria-selected="true">All Events</button>
+        <button class="nav-link active" id="future-events-tab" data-bs-toggle="tab" data-bs-target="#future-events-tab-pane" type="button" role="tab" aria-controls="future-events-tab-pane" aria-selected="true">Upcoming Events</button>
       </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="my-events-tab" data-bs-toggle="tab" data-bs-target="#my-events-tab-pane" type="button" role="tab" aria-controls="my-events-tab-pane" aria-selected="false">My Events</button>
@@ -11,12 +11,16 @@
         <button class="nav-link" id="past-events-tab" data-bs-toggle="tab" data-bs-target="#past-events-tab-pane" type="button" role="tab" aria-controls="past-events-tab-pane" aria-selected="false">Past Events</button>
       </li>
     </ul>
-    <div class="tab-content" id="nav-tabContent">
-      <div class="tab-pane fade show active p-3" id="all-events-tab-pane" role="tabpanel" aria-labelledby="all-events-tab" tabindex="0">
-        <%= render 'events_list', events: @events %>
+    <div class="tab-content p-3" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="future-events-tab-pane" role="tabpanel" aria-labelledby="future-events-tab" tabindex="0">
+        <%= render 'events_list', events: @events.future %>
       </div>
-      <div class="tab-pane fade" id="my-events-tab-pane" role="tabpanel" aria-labelledby="my-events-tab" tabindex="0">...</div>
-      <div class="tab-pane fade" id="past-events-tab-pane" role="tabpanel" aria-labelledby="past-events-tab" tabindex="0">...</div>
+      <div class="tab-pane fade" id="my-events-tab-pane" role="tabpanel" aria-labelledby="my-events-tab" tabindex="0">
+        <%= render 'events_list', events: current_user.events %>
+      </div>
+      <div class="tab-pane fade" id="past-events-tab-pane" role="tabpanel" aria-labelledby="past-events-tab" tabindex="0">
+        <%= render 'events_list', events: @events.past %>
+      </div>
     </div>
   </div>
 <% else %>
