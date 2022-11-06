@@ -19,4 +19,7 @@ class Event < ApplicationRecord
   def formatted_date
     date.strftime("%a. %b %-d %Y")
   end
+
+  scope :past, -> { where('date < ?', Date.today).order(date: :desc) }
+  scope :future, -> { where('date > ?', Date.today).order(:date) }
 end
