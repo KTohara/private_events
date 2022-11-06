@@ -17,6 +17,6 @@ class Event < ApplicationRecord
   has_many :attendees, through: :invitations
 
   def formatted_date
-    date.strftime("%a. %b %d %Y")
+    date.strftime("%a. %b %-d %Y")
   end
 end

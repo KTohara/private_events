@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[show]
+  before_action :set_event, only: %i[show attend unattend]
   before_action :set_current_user_event, only: %i[edit update destroy]
   before_action :authenticate_user!, except: %i[index show]
 
@@ -28,7 +28,22 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    redirect_to :root, notice: "Event removed!"
+    @event.destroy
+    redirect_to events_path, notice: "Event removed!"
+  end
+
+  def attend
+    if @event.attendees.include?(current_user)
+      redirect_to event_path(@event), notice: "You are already attending this event!"
+    else
+      @event.attendees << current_user
+      redirect_to event_path(@event), notice: "You have joined the event!"
+    end
+  end
+
+  def unattend
+    @event.attendees.destroy(current_user)
+    redirect_to event_path(@event), notice: "You have left the event!"
   end
 
   private
