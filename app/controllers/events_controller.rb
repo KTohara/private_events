@@ -12,10 +12,12 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
+    @event.invitations.build
+    @users = User.all
   end
 
   def create
-    @event = current_user.hosted_events.build(event_params)
+    @event = current_user.created_events.build(event_params)
 
     if @event.save
       redirect_to event_path(@event), notice: "Event created!"
@@ -25,6 +27,9 @@ class EventsController < ApplicationController
   end
 
   def edit
+    @event = Event.new
+    @event.invitations.build
+    @users = User.all
   end
 
   def destroy
@@ -35,6 +40,9 @@ class EventsController < ApplicationController
   def attend
     if @event.attendees.include?(current_user)
       redirect_to event_path(@event), notice: "You are already attending this event!"
+    # elseif
+    #   @event.private && @event.invitations.exclude?(current_user)
+    #   redirect_to event_path(@event), notice: "You have not been invited "
     else
       @event.attendees << current_user
       redirect_to event_path(@event), notice: "You have joined the event!"
@@ -52,10 +60,19 @@ class EventsController < ApplicationController
     end
 
     def set_current_user_event
-      @event = current_user.hosted_events.find(params[:id])
+      @event = current_user.created_events.find(params[:id])
     end
 
     def event_params
-      params.require(:event).permit(:name, :description, :location, :date)
+      params.require(:event).permit(
+        :title,
+        :description,
+        :location,
+        :start_date,
+        :end_date,
+        :start_time,
+        :end_time,
+        attendee_ids: []
+      )
     end
 end
