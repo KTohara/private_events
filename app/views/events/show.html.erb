@@ -17,8 +17,8 @@
     </div>
   </div>
   
-  <div class="card mb-3">
-    <div class="row gap-2">
+  <div class="container card mb-3">
+    <div class="row">
       <div class="col-4">
         <div class="card-body">
           <p class="card-text">
@@ -29,18 +29,24 @@
           <p class="card-text">
             <i class="bi bi-calendar-heart me-1"></i>
             <span class="fw-bold">Start Time:</span>
-            <span class="text-muted"><%= @event.formatted_date(@event.start_date, @event.start_time) %></span>
+            <span class="text-muted"><%= formatted_date(@event.start_date, @event.start_time) %></span>
           </p>
           <p class="card-text">
             <i class="bi bi-calendar-heart me-1"></i>
             <span class="fw-bold">End Time:</span>
-            <span class="text-muted"><%= @event.formatted_date(@event.end_date, @event.end_time) %></span>
+            <span class="text-muted"><%= formatted_date(@event.end_date, @event.end_time) %></span>
           </p>
           <p class="card-text">
             <i class="bi bi-geo-alt me-1"></i>
             <span class="fw-bold">Location:</span>
             <span class="text-muted"><%= @event.location.titleize %></span>
           </p>
+          <% if @event.private %>
+            <p class="card-text">
+              <i class="bi bi-lock"></i>
+              <span class="fw-bold">*Private Event*</span>
+            </p>
+          <% end %>
         </div>
       </div>
 
@@ -58,7 +64,7 @@
 
   <p class="fs-5">Guests</p>
 
-  <div class="card p-2">
+  <div class="container card p-2">
     <div class="list-group">
       <% if @event.attendees.empty? %>
         <p class="card-text text-center text-muted">No one has attended this event yet!</p>

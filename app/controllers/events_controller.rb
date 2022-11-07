@@ -1,8 +1,8 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[show attend unattend]
+  before_action :set_event, only: %i[show edit attend unattend]
   before_action :set_current_user_event, only: %i[edit update destroy]
   before_action :authenticate_user!, except: %i[index show]
-
+  
   def index
     @events = Event.all
   end
@@ -18,6 +18,8 @@ class EventsController < ApplicationController
 
   def create
     @event = current_user.created_events.build(event_params)
+    @event.attendees << current_user
+    current_user.invitations.last.status = "accepted"
 
     if @event.save
       redirect_to event_path(@event), notice: "Event created!"
@@ -27,7 +29,6 @@ class EventsController < ApplicationController
   end
 
   def edit
-    @event = Event.new
     @event.invitations.build
     @users = User.all
   end
@@ -72,6 +73,7 @@ class EventsController < ApplicationController
         :end_date,
         :start_time,
         :end_time,
+        :private,
         attendee_ids: []
       )
     end

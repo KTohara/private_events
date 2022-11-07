@@ -43,6 +43,11 @@
     <%= f.time_field :end_time, class: 'form-control' %>
   </div>
 
+  <div class="field form-check">
+    <%= f.label :private %>
+    <%= f.check_box :private, class:"form-check-input" %>
+  </div>
+
   <div class="field">
       <%= f.collection_check_boxes :attendee_ids, @users, :id, :username, { checked: @attendees } do |o| %>
         <%= o.check_box %>
