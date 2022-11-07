@@ -14,8 +14,8 @@
 class Event < ApplicationRecord
   include ActionView::Helpers
   belongs_to :host, foreign_key: :creator_id, class_name: 'User'
-  has_many :invitations
-  has_many :attendees, through: :invitations
+  has_many :invitations, dependent: :destroy
+  has_many :attendees, through: :invitations, source: :attendee
   
   scope :past, -> { where("date < ?", Date.today).order(date: :desc) }
   scope :future, -> { where('date > ?', Date.today).order(:date) }

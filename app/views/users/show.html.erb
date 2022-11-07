@@ -1,14 +1,14 @@
 <div class="mx-5 mb-3">
   <h3><%= @user.username.titleize %>'s Events</h3>
 </div>
-<p class="mx-5 fs-5">Created <%= pluralize(@user.events.count, 'Event' ) %></p>
-<% if @user.events.empty? %>
+<p class="mx-5 fs-5">Created <%= pluralize(@user.created_events.count, 'Event' ) %></p>
+<% if @user.created_events.empty? %>
   <div class="list-group mx-5">
     <p class="list-group-item"><%= @user.username.titleize %> has not made any events yet.</p>
   </div>
 <% else %>
   <div class="mx-5">
-    <%= render 'events/events_list', events: @user.events %>
+    <%= render 'events/events_list', events: @user.created_events %>
   </div>
 <% end %>
 

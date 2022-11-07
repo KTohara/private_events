@@ -16,7 +16,7 @@
         <%= render 'events_list', events: @events.future %>
       </div>
       <div class="tab-pane fade" id="my-events-tab-pane" role="tabpanel" aria-labelledby="my-events-tab" tabindex="0">
-        <%= render 'events_list', events: current_user.events %>
+        <%= render 'events_list', events: current_user.created_events %>
       </div>
       <div class="tab-pane fade" id="past-events-tab-pane" role="tabpanel" aria-labelledby="past-events-tab" tabindex="0">
         <%= render 'events_list', events: @events.past %>
