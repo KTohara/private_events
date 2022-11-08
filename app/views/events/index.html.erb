@@ -13,13 +13,13 @@
     </ul>
     <div class="tab-content p-3" id="nav-tabContent">
       <div class="tab-pane fade show active" id="future-events-tab-pane" role="tabpanel" aria-labelledby="future-events-tab" tabindex="0">
-        <%= render 'events_list', events: @events.future %>
+        <%= render 'events_list', events: @events.future.public_events %>
       </div>
       <div class="tab-pane fade" id="my-events-tab-pane" role="tabpanel" aria-labelledby="my-events-tab" tabindex="0">
         <%= render 'events_list', events: current_user.created_events %>
       </div>
       <div class="tab-pane fade" id="past-events-tab-pane" role="tabpanel" aria-labelledby="past-events-tab" tabindex="0">
-        <%= render 'events_list', events: @events.past %>
+        <%= render 'events_list', events: @events.past.public_events %>
       </div>
     </div>
   </div>

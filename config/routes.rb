@@ -7,12 +7,17 @@ Rails.application.routes.draw do
   # end
 
   devise_for :users
-  resources :users, only: %i[index show]
-  resources :invitations, only: %i[index new create]
+  
+  resources :users, only: %i[index show] do
+    resources :invitations, only: [:index]
+  end
+
   resources :events do
     member do
       get 'attend'
       get 'unattend'
     end
   end
+
+  resources :invitations, only: %i[new create edit update destroy]
 end

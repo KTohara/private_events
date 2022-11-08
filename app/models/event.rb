@@ -22,6 +22,7 @@ class Event < ApplicationRecord
 
   validates :title, :location, :start_date, :end_date, :start_time, :end_time, presence: true
 
-  scope :past, -> { where("end_date < ?", Date.today).order(end_date: :desc) }
+  scope :past, -> { where('end_date < ?', Date.today).order(end_date: :desc) }
   scope :future, -> { where('end_date > ?', Date.today).order(:end_date) }
+  scope :public_events, -> { where(private: false) }
 end

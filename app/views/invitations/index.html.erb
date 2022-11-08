@@ -1,2 +1,16 @@
-<h1>Invitations#index</h1>
-<p>Find me in app/views/invitations/index.html.erb</p>
+<div class="mx-5 mb-3">
+  <h3><%= current_user.username.titleize %>'s Invitations</h3>
+</div>
+
+<p class="mx-5 fs-5">You have <%= pluralize(current_user.invitations.count, 'invitation' ) %> awaiting confirmation</p>
+<% if current_user.invitations.empty? %>
+  <div class="list-group mx-5">
+    <p class="list-group-item"><%= current_user.username.titleize %> has no invitations yet.</p>
+  </div>
+<% else %>
+  <div class="container mx-5">
+    <% @invites.each do |invite| %>
+      <%= render 'events/event', event: invite.event %>
+    <% end %>
+  </div>
+<% end %>

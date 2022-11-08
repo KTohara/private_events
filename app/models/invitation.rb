@@ -13,9 +13,5 @@ class Invitation < ApplicationRecord
   belongs_to :event
   belongs_to :attendee, class_name: 'User'
 
-  enum status: {
-    no_response: 1,
-    accepted: 2,
-    declined: 3
-  }
+  enum status: [:no_response, :accepted, :declined]
 end
