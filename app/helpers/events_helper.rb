@@ -9,7 +9,7 @@ module EventsHelper
     "Event ended: #{time_ago_in_words(start_date)} ago"
   end
 
-  def invitation_status_btn(status)
+  def invitation_status(status)
     case status
     when 'no_response'
       content_tag :div, class: "badge bg-warning text-black col-auto" do 

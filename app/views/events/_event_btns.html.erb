@@ -1,0 +1,13 @@
+<% if current_user == @event.host %>
+  <%= link_to 'Edit Event', edit_event_path, class: "btn btn-primary" %>
+  <%= button_to 'Delete Event', event_path, method: :delete, data: { turbo_confirm: "Delete Event?" }, class: "btn btn-primary" %>
+<% elsif @event.attendees.include?(current_user) %>
+  <%= button_to 'Leave Event', event_invitation_path(@event, @invite), method: :delete, data: { turbo_confirm: "Leave Event?" }, class: 'btn btn-primary' %>
+<% else %>
+  <%= form_for @invite, url: event_invitations_path(@event) do |f| %>
+    <%= f.hidden_field :event_id, value: @event.id %>
+    <%= f.hidden_field :attendee_id, value: current_user.id %>
+    <%= f.hidden_field :status, value: 'accepted' %>
+    <%= f.submit "Join Event", class: "btn btn-primary" %>
+  <% end %>
+<% end %>

@@ -13,11 +13,12 @@ Rails.application.routes.draw do
   end
 
   resources :events do
+    resources :invitations, only: %i[create destroy]
     member do
       get 'attend'
       get 'unattend'
     end
   end
 
-  resources :invitations, only: %i[new create edit update destroy]
+  resources :invitations, only: %i[update]
 end
