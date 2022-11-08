@@ -19,64 +19,60 @@
   
   <div class="container card mb-3">
     <div class="row">
-      <div class="col-4">
-        <div class="card-body">
+      <div class="col-4 card-body">
+        <p class="card-text">
+          <i class="bi bi-person-circle me-1"></i>
+          <span class="fw-bold">Host:</span>
+          <%= link_to @event.host.username, user_path(@event.host) %>
+        </p>
+        <p class="card-text">
+          <i class="bi bi-geo-alt me-1"></i>
+          <span class="fw-bold">Location:</span>
+          <span class="text-muted"><%= @event.location.titleize %></span>
+        </p>
+        <p class="card-text">
+          <i class="bi bi-calendar-heart me-1"></i>
+          <span class="fw-bold">Start Time:</span>
+          <span class="text-muted"><%= formatted_date(@event.start_date, @event.start_time) %></span>
+        </p>
+        <p class="card-text">
+          <i class="bi bi-calendar-x"></i>
+          <span class="fw-bold">End Time:</span>
+          <span class="text-muted"><%= formatted_date(@event.end_date, @event.end_time) %></span>
+        </p>
+        <% if @event.private %>
           <p class="card-text">
-            <i class="bi bi-person-circle me-1"></i>
-            <span class="fw-bold">Host:</span>
-            <%= link_to @event.host.username, user_path(@event.host) %>
+            <i class="bi bi-lock"></i>
+            <span class="fw-bold">*Private Event*</span>
           </p>
-          <p class="card-text">
-            <i class="bi bi-calendar-heart me-1"></i>
-            <span class="fw-bold">Start Time:</span>
-            <span class="text-muted"><%= formatted_date(@event.start_date, @event.start_time) %></span>
-          </p>
-          <p class="card-text">
-            <i class="bi bi-calendar-heart me-1"></i>
-            <span class="fw-bold">End Time:</span>
-            <span class="text-muted"><%= formatted_date(@event.end_date, @event.end_time) %></span>
-          </p>
-          <p class="card-text">
-            <i class="bi bi-geo-alt me-1"></i>
-            <span class="fw-bold">Location:</span>
-            <span class="text-muted"><%= @event.location.titleize %></span>
-          </p>
-          <% if @event.private %>
-            <p class="card-text">
-              <i class="bi bi-lock"></i>
-              <span class="fw-bold">*Private Event*</span>
-            </p>
-          <% end %>
-        </div>
+        <% end %>
       </div>
 
-      <div class="col-7">
-        <div class="card-body">
-          <p class="card-text mb-1">
-            <i class="bi bi-card-text"></i>
-            <span class="fw-bold">Event Details:</span>
-            <p class="lead"><%= @event.description %></p>
-          </p>
-        </div>
+      <div class="col-7 card-body">
+        <p class="card-text mb-1">
+          <i class="bi bi-card-text"></i>
+          <span class="fw-bold">Event Details:</span>
+          <p class="lead"><%= @event.description %></p>
+        </p>
       </div>
     </div>
   </div>
 
   <p class="fs-5">Guests</p>
 
-  <div class="container card p-2">
-    <div class="list-group">
-      <% if @event.attendees.empty? %>
-        <p class="card-text text-center text-muted">No one has attended this event yet!</p>
-      <% else %>
-        <% @event.attendees.each do |attendee| %>
-          <span class="list-group-item">
-            <i class="bi bi-person-circle me-1"></i>
-            <%= link_to attendee.username, user_path(attendee) %>
-          </span>
-        <% end %>
+  <div class="container list-group">
+    <% if @event.attendees.empty? %>
+      <p class="text-center text-muted">No one has attended this event yet!</p>
+    <% else %>
+      <% @event.attendees.each do |attendee| %>
+        <div class="list-group-item">
+          <div class="row align-items-center">
+            <i class="col-auto bi bi-person-circle pe-0"></i>
+            <div class="col-auto me-auto"><%= link_to attendee.username, user_path(attendee) %></div>
+          </div>
+        </div>
       <% end %>
-    </div>
+    <% end %>
   </div>
 </div>
 

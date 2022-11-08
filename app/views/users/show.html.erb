@@ -12,7 +12,7 @@
   </div>
 <% end %>
 
-<p class="mx-5 fs-5">Currently Attending <%= pluralize(@user.attending_events.count, 'Event') %></p>
+<p class="mx-5 fs-5">Currently Attending <%= pluralize(@user.attending_events.future.count, 'Event') %></p>
 <% if @user.attending_events.empty? %>
   <div class="list-group mx-5">
     <p class="list-group-item"><%= @user.username.titleize %> has not attended any events yet.</p>

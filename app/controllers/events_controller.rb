@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   
   def index
-    @events = Event.all
+    @events = Event.all.includes(:host)
   end
 
   def show
@@ -43,7 +43,7 @@ class EventsController < ApplicationController
       redirect_to event_path(@event), notice: "You are already attending this event!"
     # elseif
     #   @event.private && @event.invitations.exclude?(current_user)
-    #   redirect_to event_path(@event), notice: "You have not been invited "
+    #   redirect_to event_path(@event), notice: "You have not been invited"
     else
       @event.attendees << current_user
       redirect_to event_path(@event), notice: "You have joined the event!"

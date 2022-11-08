@@ -1,15 +1,38 @@
-<div class="col m-1">
-  <div class="list-group">
-    <%= link_to event_url(event), class: "list-group-item list-group-item-action" do %>
-      <div class="d-flex w-100 justify-content-between">
-        <p class="h5 mb-2 fw-bold"><%= event.title %></p>
-        <small><%= time_to_event(event.start_date) %></small>
+<div class="card mb-3 list-group list-group-item-action">
+  <div class="container card-body">
+    <%= link_to "", event_url(event), class: 'stretched-link' %>
+    <div class="row align-items-center">
+      <h5 class="card-title col-auto me-auto"><%= event.title.titleize %></h5>
+      <small class="col-auto card-subtitle text-muted"><%= time_to_event(event.start_date) %></small>
+    </div>
+    
+    <hr class="my-1">
+    
+    <div class="row justify-content-between">
+      <div class="col">
+        <p class="mt-2 card-text">
+          <i class="bi bi-person-circle me-1"></i>
+          <span class='fw-bold'>Host: </span><%= event.host.username %>
+        </p>
+        <p class="mt-2 card-text">
+          <i class="bi bi-geo-alt me-1"></i>
+          <span class='fw-bold'>Location: </span><%= event.location %>
+        </p>
+        <p class="mt-2 card-text">
+          <i class="bi bi-calendar-heart me-1"></i>
+          <span class='fw-bold'>Start Time: </span>
+          <%= formatted_date(event.start_date, event.start_time) %>
+        </p>
+        <p class="mt-2 card-text">
+          <i class="bi bi-calendar-x"></i>
+          <span class='fw-bold'>End Time: </span>
+          <%= formatted_date(event.end_date, event.end_time) %>
+        </p>
       </div>
-      <p class="mb-1">Location: <%= event.location %></p>
-      <p class="mb-1"><small>Start Time: <%= formatted_date(event.start_date, event.start_time) %></small></p>
-      <p class="mb-1"><small>End Time: <%= formatted_date(event.end_date, event.end_time) %></small></p>
-      <p class="mb-1"><small>Host: <%= event.host.username.titleize %></small></p>
-      <small>Description: <%= event.description.truncate_words(10) %></small>
-    <% end %>
+      <div class="col-2 d-flex justify-content-end align-items-end gap-2">
+        <%= link_to 'Accept', attend_event_path(event), class: 'col-auto btn btn-primary btn-sm' if @invites %>
+        <%= link_to 'Decline', unattend_event_path(event), class: 'col-auto btn btn-primary btn-sm' if @invites %>
+      </div>
+    </div>
   </div>
 </div>

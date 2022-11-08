@@ -8,5 +8,7 @@
   </div>
 <% end %>
 <% events.each do |event| %>
-  <%= render 'event', event: event %>
+  <div class="container">
+    <%= render 'events/event', event: event %>
+  </div>
 <% end %>

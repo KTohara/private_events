@@ -4,8 +4,13 @@ html {
   overflow-y: scroll;
 }
 
-html, body {
+body {
   font-family: 'Source Sans Pro', sans-serif;
+  background-color: rgb(240, 240, 240);
+}
+
+.nav-color {
+  background-color: rgb(199, 224, 220);
 }
 
 .btn {
