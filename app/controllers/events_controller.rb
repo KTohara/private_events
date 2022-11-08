@@ -8,6 +8,7 @@ class EventsController < ApplicationController
   end
 
   def show
+    @invites = @event.invitations.includes(:attendee).order(:status)
   end
 
   def new

@@ -1,0 +1,8 @@
+<% if current_user == @event.host %>
+  <%= link_to 'Edit Event', edit_event_path, class: "btn btn-primary" %>
+  <%= button_to 'Delete Event', event_path, method: :delete, data: { turbo_confirm: "Delete Event?" }, class: "btn btn-primary" %>
+<% elsif current_user && @event.attendees.include?(current_user) %>
+  <%= link_to 'Leave Event', unattend_event_path, class: 'btn btn-primary' %>
+<% elsif current_user && @event.attendees.exclude?(current_user) %>
+  <%= link_to 'Join Event', attend_event_path, class: 'btn btn-primary' %>
+<% end %>
