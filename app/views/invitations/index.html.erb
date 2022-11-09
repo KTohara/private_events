@@ -10,7 +10,7 @@
 <% else %>
   <div class="container justify-content-center">
     <% @invites.each do |invite| %>
-      <%= render 'events/event', event: invite.event %>
+      <%= render 'events/event', event: invite.event, invite: invite %>
     <% end %>
   </div>
 <% end %>

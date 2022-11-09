@@ -1,8 +1,7 @@
 <div class="card mb-3 list-group list-group-item-action">
   <div class="container card-body">
-    <%= link_to "", event_url(event), class: 'stretched-link' %>
     <div class="row align-items-center">
-      <h5 class="card-title col-auto me-auto"><%= event.title.titleize %></h5>
+    <%= link_to event.title.titleize, event_url(event), class: 'h5 card-title col-auto me-auto' %>
       <small class="col-auto card-subtitle text-muted"><%= time_to_event(event.start_date) %></small>
     </div>
     
@@ -12,7 +11,7 @@
       <div class="col">
         <p class="mt-2 card-text">
           <i class="bi bi-person-circle me-1"></i>
-          <span class='fw-bold'>Host: </span><%= event.host.username %>
+          <span class='fw-bold'>Host: </span><%= link_to event.host.username, user_path(event.host) %>
         </p>
         <p class="mt-2 card-text">
           <i class="bi bi-geo-alt me-1"></i>
@@ -29,9 +28,11 @@
           <%= formatted_date(event.end_date, event.end_time) %>
         </p>
       </div>
-      <% if controller.controller_name == 'invitations' %>
-        <%= render 'invitation_btns', event: event %>
-      <% end %>        
+      <div class="col-5 d-flex justify-content-end align-items-end gap-2">
+
+      <% if params[:controller] == 'invitations' %>
+          <%= render 'invitations/invitation_btns', invite: invite %>
+      <% end %>
     </div>
   </div>
 </div>

@@ -1,5 +1,6 @@
 class InvitationsController < ApplicationController
   before_action :authenticate_user!, only: %i[index]
+  before_action :set_invite, only: %i[update destroy]
   
   def index
     @invites = Invitation.includes(event: [:host]).where(attendee: current_user)
@@ -15,14 +16,13 @@ class InvitationsController < ApplicationController
   end
 
   def update
-    if @event.attendees.include?(current_user)
-      redirect_to event_path(@event), notice: "You are already attending this event!"
-    # elseif
-    #   @event.private && @event.invitations.exclude?(current_user)
-    #   redirect_to event_path(@event), notice: "You have not been invited"
+    @invite.status = 'declined' if declined?
+    @invite.status = 'accepted' if accepted?
+
+    if @invite.update(invite_params)
+      redirect_to user_invitations_path(current_user), notice: "You status has been updated."
     else
-      @event.attendees << current_user
-      redirect_to event_path(@event), notice: "You have joined the event!"
+      redirect_to user_invitations_path(current_user), notice: "You cannot change your status!"
     end
   end
 
@@ -35,7 +35,19 @@ class InvitationsController < ApplicationController
 
   private
 
-  def invite_params
-    params.require(:invitation).permit(:attendee_id, :event_id)
-  end
+    def invite_params
+      params.require(:invitation).permit(:attendee_id, :event_id, :status)
+    end
+
+    def set_invite
+      @invite = Invitation.find(params[:id])
+    end
+
+    def declined?
+      params[:commit] == 'Decline'
+    end
+
+    def accepted?
+      params[:commit] == 'Accept'
+    end
 end
