@@ -1,5 +1,5 @@
-<div class="vh-100 d-flex justify-content-center align-items-center">
-  <div class="col-md-5 p-5 shadow-sm border rounded-5 border-primary bg-white">
+<div class="row justify-content-center align-items-center">
+  <div class="col-md-8 p-5 shadow-sm border rounded-5 border-primary bg-white">
     <h2 class="text-center mb-1 text-primary">Profile: <%= current_user.username %></h2>
     <h3 class="text-center mb-4 text-primary">Change Settings</h3>
 
@@ -34,7 +34,7 @@
       </div>
 
       <div class="actions d-grid">
-        <%= f.submit "Signup", class: "btn btn-primary" %>
+        <%= f.submit "Save Settings", class: "btn btn-primary" %>
       </div>
     <% end %>
   

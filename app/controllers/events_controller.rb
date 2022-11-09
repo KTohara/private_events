@@ -41,23 +41,6 @@ class EventsController < ApplicationController
     redirect_to events_path, notice: "Event removed!"
   end
 
-  def attend
-    if @event.attendees.include?(current_user)
-      redirect_to event_path(@event), notice: "You are already attending this event!"
-    # elseif
-    #   @event.private && @event.invitations.exclude?(current_user)
-    #   redirect_to event_path(@event), notice: "You have not been invited"
-    else
-      @event.attendees << current_user
-      redirect_to event_path(@event), notice: "You have joined the event!"
-    end
-  end
-
-  def unattend
-    @event.attendees.destroy(current_user)
-    redirect_to event_path(@event), notice: "You have left the event!"
-  end
-
   private
     def set_event
       @event = Event.find(params[:id])
