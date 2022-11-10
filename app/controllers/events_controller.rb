@@ -22,7 +22,7 @@ class EventsController < ApplicationController
   def create
     @event = current_user.created_events.build(event_params)
     @event.attendees << current_user
-    current_user.invitations.last.status = "accepted"
+    @event.invitations.last.status = 'accepted'
 
     if @event.save
       redirect_to event_path(@event), notice: "Event created!"

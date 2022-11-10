@@ -1,0 +1,14 @@
+<% if events.empty? %>
+  <div class="col m-1">
+    <div class="list-group">
+      <p class="mb-2 list-group-item"><%= current_user.username.titleize %> has no events!</p>
+    </div>
+  </div>
+<% end %>
+<% events.each do |event| %>
+  <% if params[:controller] == 'invitations' %>
+    <%= render 'layouts/shared/event', event: event.event, invite: event %>
+  <% else %>
+    <%= render 'layouts/shared/event', event: event %>
+  <% end %>
+<% end %>

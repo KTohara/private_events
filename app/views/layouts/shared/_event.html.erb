@@ -1,5 +1,5 @@
-<div class="card mb-3 list-group list-group-item-action">
-  <div class="container card-body">
+<div class="card mb-3">
+  <div class="card-body">
     <div class="row align-items-center">
     <%= link_to event.title.titleize, event_url(event), class: 'h5 card-title col-auto me-auto' %>
       <small class="col-auto card-subtitle text-muted"><%= time_to_event(event.start_date) %></small>
@@ -28,11 +28,12 @@
           <%= formatted_date(event.end_date, event.end_time) %>
         </p>
       </div>
-      <div class="col-5 d-flex justify-content-end align-items-end gap-2">
 
-      <% if params[:controller] == 'invitations' %>
+      <div class="col-5 d-flex justify-content-end align-items-end gap-2">
+        <% if params[:controller] == 'invitations' %>
           <%= render 'invitations/invitation_btns', invite: invite %>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

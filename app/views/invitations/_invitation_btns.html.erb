@@ -1,12 +1,12 @@
-  <%= form_with model: invite do |f| %>
-    <%= f.hidden_field :event_id, value: invite.event.id %>
-    <%= f.hidden_field :attendee_id, value: current_user.id %>
-    <% if invite.status == 'declined' %>
-        <%= f.submit "Accept", class: "btn btn-primary" %>
-    <% elsif invite.status == 'accepted' %>
-        <%= f.submit "Decline", class: "btn btn-primary" %>
-    <% else %>
-        <%= f.submit "Accept", class: "btn btn-primary" %>
-        <%= f.submit "Decline", class: "btn btn-primary" %>
-    <% end %>
+<%= form_with model: invite do |f| %>
+  <%= f.hidden_field :event_id, value: invite.event.id %>
+  <%= f.hidden_field :attendee_id, value: current_user.id %>
+  <% if invite.status == 'declined' %>
+      <%= f.submit "Accept", class: "btn btn-primary" %>
+  <% elsif invite.status == 'accepted' %>
+      <%= f.submit "Decline", class: "btn btn-primary" %>
+  <% else %>
+      <%= f.submit "Accept", class: "btn btn-primary" %>
+      <%= f.submit "Decline", class: "btn btn-primary" %>
   <% end %>
+<% end %>

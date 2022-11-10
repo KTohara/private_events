@@ -11,7 +11,7 @@ module EventsHelper
 
   def invitation_status(status)
     case status
-    when 'no_response'
+    when 'unconfirmed'
       content_tag :div, class: "badge bg-warning text-black col-auto" do 
         'Awaiting'
       end

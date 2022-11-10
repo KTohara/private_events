@@ -8,7 +8,7 @@
   </div>
 <% else %>
   <div class="mx-5">
-    <%= render 'events/events_list', events: @user.created_events %>
+    <%= render 'layouts/shared/events_list', events: @user.created_events %>
   </div>
 <% end %>
 
@@ -19,7 +19,7 @@
   </div>
 <% else %>
   <div class="mx-5">
-    <%= render 'events/events_list', events: @user.attending_events.future %>
+    <%= render 'layouts/shared/events_list', events: @user.attending_events.future %>
   </div>
 <% end %>
 
@@ -30,6 +30,6 @@
   </div>
 <% else %>
   <div class="mx-5">
-    <%= render 'events/events_list', events: @user.attending_events.past %>
+    <%= render 'layouts/shared/events_list', events: @user.attending_events.past %>
   </div>
 <% end %>
