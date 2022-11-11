@@ -44,15 +44,15 @@
   </div>
 
   <div class="field form-check">
-    <%= f.label :private, 'Private Event' %>
+    <%= f.label :private %>
     <%= f.check_box :private, class:"form-check-input" %>
   </div>
 
-  <div class="field form-check">
-    <%= f.collection_check_boxes :attendee_ids, @users, :id, :username, checked: @attendees do |o| %>
-      <%= o.check_box checked: o.object.id == current_user.id, disabled: o.object.id == current_user.id, class:"form-check-input" %>
-      <%= o.label %>
-      <br>
+  <div class="field">
+      <%= f.collection_check_boxes :attendee_ids, @users, :id, :username, { checked: @attendees } do |o| %>
+        <%= o.check_box %>
+        <%= o.label %>
+        <br>
     <% end %>
   </div>
 

@@ -33,15 +33,8 @@ class InvitationsController < ApplicationController
     redirect_to event_path(@event), notice: "You have left the event!"
   end
 
-  def search
-    if params[:query]
-      @users = User.where('UPPER(username) LIKE ?', "#{params[:query].upcase}%")
-    else
-      @users = User.all
-    end
-  end
-
   private
+
     def invite_params
       params.require(:invitation).permit(:attendee_id, :event_id, :status)
     end
