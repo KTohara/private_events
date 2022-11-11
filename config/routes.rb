@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   resources :events do
     resources :invitations, only: %i[create destroy]
+    get 'search', to: 'invitations#search', as: 'invitations_search'
   end
 
   resources :invitations, only: %i[update]

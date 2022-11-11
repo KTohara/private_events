@@ -25,4 +25,6 @@ class User < ApplicationRecord
     inverse_of: :host
   has_many :invitations, foreign_key: :attendee_id, dependent: :destroy, inverse_of: :attendee
   has_many :attending_events, through: :invitations, source: :event
+
+  scope :new_attendees, -> params { joins(:invitations).where(id: params[:event][:attendee_ids]).where.not(status: :accepted) }
 end

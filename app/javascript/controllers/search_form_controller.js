@@ -1,7 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
 
+// Connects to data-controller="search-form"
 export default class extends Controller {
-  connect() {
-    this.element.textContent = "Hello World!"
+  search() {
+    this.element.requestSubmit()
   }
 }

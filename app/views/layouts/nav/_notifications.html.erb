@@ -1,7 +1,7 @@
 <% if current_user %>
   <li class="nav-item">
     <%= link_to user_invitations_path(current_user), class: 'nav-link position-relative' do %>
-      Invites WIP <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"">4</span>
+      Invites <%= notification_count %>
     <% end %>
   </li>
 <% end %>
