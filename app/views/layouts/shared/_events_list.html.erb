@@ -6,7 +6,7 @@
   </div>
 <% end %>
 <% events.each do |event| %>
-  <% if params[:controller] == 'invitations' %>
+  <% if controller_name == 'invitations' %>
     <%= render 'layouts/shared/event', event: event.event, invite: event %>
   <% else %>
     <%= render 'layouts/shared/event', event: event %>

@@ -1,7 +1,15 @@
 <% if current_user %>
-  <li class="nav-item">
-    <%= link_to user_invitations_path(current_user), class: 'nav-link position-relative' do %>
-      Invites <%= notification_count %>
-    <% end %>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle position-relative" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-bell-fill" style="font-size: 20px"></i>
+      <%= notification_count %>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
+      <li><%= link_to 'Invitations', user_invitations_path(current_user), class: 'dropdown-item' %></li>
+      <hr class="dropdown-divider">
+      <% @unread_notifications.each do |invite| %>
+        <li><%= link_to "Event: #{invite.event.title.titleize} - Host: #{invite.event.host.username}", "#{user_invitations_path(current_user)}##{dom_id invite.event}", class: 'dropdown-item'%></li>
+      <% end %>
+    </ul>
   </li>
 <% end %>

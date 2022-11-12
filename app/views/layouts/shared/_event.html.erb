@@ -1,7 +1,7 @@
-<div class="card mb-3">
+<div class="card mb-3" id="<%= dom_id event %>">
   <div class="card-body">
     <div class="row align-items-center">
-    <%= link_to event.title.titleize, event_url(event), class: 'h5 card-title col-auto me-auto' %>
+    <%= link_to event.title.titleize, event_url(event), class: 'h5 card-title col-auto me-auto', style: "text-decoration: none" %>
       <small class="col-auto card-subtitle text-muted"><%= time_to_event(event.start_date) %></small>
     </div>
     
@@ -11,7 +11,7 @@
       <div class="col">
         <p class="mt-2 card-text">
           <i class="bi bi-person-circle me-1"></i>
-          <span class='fw-bold'>Host: </span><%= link_to event.host.username, user_path(event.host) %>
+          <span class='fw-bold'>Host: </span><%= link_to event.host.username, user_path(event.host), style: "text-decoration: none" %>
         </p>
         <p class="mt-2 card-text">
           <i class="bi bi-geo-alt me-1"></i>

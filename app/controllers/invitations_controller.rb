@@ -1,5 +1,5 @@
 class InvitationsController < ApplicationController
-  before_action :authenticate_user!, only: %i[index]
+  before_action :authenticate_user!
   before_action :set_invite, only: %i[update destroy]
   before_action :set_event, only: %i[destroy search]
   
@@ -47,7 +47,8 @@ class InvitationsController < ApplicationController
     end
   end
 
-  private
+    private
+    
     def invite_params
       params.require(:invitation).permit(:attendee_id, :event_id, :status)
     end
