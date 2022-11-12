@@ -10,7 +10,7 @@ class EventsController < ApplicationController
 
   def show
     @invites = @event.invitations.includes(:attendee).order(:status)
-    invite = Invitation.find_by(attendee: current_user)
+    invite = Invitation.find_by(event: @event, attendee: current_user) # find or create by?
     @invite = invite.nil? ? Invitation.new : invite
   end
 

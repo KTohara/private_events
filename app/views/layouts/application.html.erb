@@ -15,8 +15,8 @@
     <% unless devise_controller? %>
       <%= render 'layouts/nav/nav' %>
     <% end %>
-    <%= render 'layouts/alerts' %>
-    <div class="container w-50 gx-0 mt-5">
+    <%= render 'layouts/shared/alerts' %>
+    <div class="container mt-5">
       <%= yield %>
     </div>
   </body>

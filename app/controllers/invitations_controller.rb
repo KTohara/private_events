@@ -1,17 +1,21 @@
 class InvitationsController < ApplicationController
   before_action :authenticate_user!, only: %i[index]
   before_action :set_invite, only: %i[update destroy]
+  before_action :set_event, only: %i[destroy search]
   
   def index
     @invites = Invitation.includes(event: [:host]).where(attendee: current_user)
   end
 
   def create
-    @invite = current_user.invitations.build(invite_params)
-    if @invite.save
-      redirect_to event_path(@invite), notice: "You have joined the event!"
+    user = User.find(params[:invitation][:attendee_id])
+    @invite = user.invitations.build(invite_params)
+    if @invite.save && params[:invitation][:request_type] == 'search'
+      redirect_to event_invitations_search_path(@invite.event_id), notice: "You have sent an invite to #{@invite.attendee.username}"
+    elsif @invite.save && action_name == 'create'
+      redirect_to event_path(@invite.event_id), notice: "You have joined the event!"
     else
-      redirect_to event_path(@invite), notice: "You are already attending this event!"
+      redirect_to event_path(@invite.event_id), notice: "You are already attending this event!"
     end
   end
 
@@ -27,17 +31,19 @@ class InvitationsController < ApplicationController
   end
 
   def destroy
-    @event = Event.find(params[:event_id])
     @invite = Invitation.find(params[:id])
     @invite.destroy
     redirect_to event_path(@event), notice: "You have left the event!"
   end
 
   def search
-    if params[:query]
-      @users = User.where('UPPER(username) LIKE ?', "#{params[:query].upcase}%")
+    @invite = Invitation.new
+    @users = User.not_attending(@event.attendees)
+    @users = @users.query(params[:query]) if params[:query]
+    if turbo_frame_request?
+      render partial: 'search_user', locals: { users: @users }
     else
-      @users = User.all
+      render :search
     end
   end
 
@@ -48,6 +54,10 @@ class InvitationsController < ApplicationController
 
     def set_invite
       @invite = Invitation.find(params[:id])
+    end
+
+    def set_event
+      @event = Event.find(params[:event_id])
     end
 
     def declined?

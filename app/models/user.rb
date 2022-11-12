@@ -26,5 +26,9 @@ class User < ApplicationRecord
   has_many :invitations, foreign_key: :attendee_id, dependent: :destroy, inverse_of: :attendee
   has_many :attending_events, through: :invitations, source: :event
 
-  scope :new_attendees, -> params { joins(:invitations).where(id: params[:event][:attendee_ids]).where.not(status: :accepted) }
+  scope :new_attendees, -> event { joins(:invitations)
+    .where(invitations: { id: event.id })
+    .where.not(invitations: { status: :accepted }) }
+  scope :not_attending, -> attendees { where.not(id: attendees) }
+  scope :query, -> search { where('UPPER(username) LIKE ?', "#{search.upcase}%") }
 end
