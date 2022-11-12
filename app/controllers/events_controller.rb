@@ -20,7 +20,6 @@ class EventsController < ApplicationController
 
   def create
     @event = current_user.created_events.build(event_params)
-    @users = User.where.not(id: current_user.id)
     @event.attendees << current_user
     @event.invitations.last.status = 'accepted'
 
@@ -37,10 +36,6 @@ class EventsController < ApplicationController
   end
 
   def update
-    @event.invitations.build
-    @users = User.all
-
-    params[:event][:attendee_ids] << current_user.id
     if @event.update(event_params)
       redirect_to event_path(@event), notice: "Event updated!"
     else
@@ -53,7 +48,8 @@ class EventsController < ApplicationController
     redirect_to events_path, notice: "Event removed!"
   end
 
-  private
+    private
+    
     def set_event
       @event = Event.find(params[:id])
     end
@@ -74,8 +70,7 @@ class EventsController < ApplicationController
         :end_date,
         :start_time,
         :end_time,
-        :private,
-        attendee_ids: []
+        :private
       )
     end
 end
