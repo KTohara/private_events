@@ -2,7 +2,7 @@
   <div class="card-body">
     <div class="row align-items-center">
     <%= link_to event.title.titleize, event_url(event), class: 'h5 card-title col-auto me-auto', style: "text-decoration: none" %>
-      <small class="col-auto card-subtitle text-muted"><%= time_to_event(event.start_date) %></small>
+      <small class="col-auto card-subtitle text-muted"><%= time_to_event(event.start_date, event.end_date) %></small>
     </div>
     
     <hr class="my-1">
