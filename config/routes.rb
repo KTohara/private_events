@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   #   # Redirects signing out users back to sign-in
   #   get "users", to: "devise/sessions#new"
   # end
-
+  devise_for :users
   
   resources :users, only: %i[show] do
     resources :invitations, only: [:index]
@@ -16,6 +16,5 @@ Rails.application.routes.draw do
     get 'search', to: 'invitations#search', as: 'invitations_search'
   end
   
-  devise_for :users
   resources :invitations, only: %i[update]
 end
