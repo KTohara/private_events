@@ -6,8 +6,9 @@ class InvitationsController < ApplicationController
   
   def index
     @invites = Invitation.includes(event: [:host]).where(attendee: current_user)
-      #else
-    redirect_to user_invitations_path(current_user), notice: "These aren't the invitations you're looking for..."
+    unless current_user == User.find(params[:user_id])
+      redirect_back_or_to root_path, notice: "These aren't the invitations you're looking for..."
+    end
   end
 
   def create
@@ -54,12 +55,6 @@ class InvitationsController < ApplicationController
     
     def invite_params
       params.require(:invitation).permit(:attendee_id, :event_id, :status)
-    end
-
-    def authenticate_user_invites
-      unless current_user == User.find(params[:user_id])
-        redirect_back_or_to root_path, notice: "These aren't the invitations you're looking for..."
-      end
     end
 
     def set_invite
