@@ -13,7 +13,6 @@ gem "redis"
 gem "jbuilder"
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
-gem "faker"
 gem "devise"
 
 group :development, :test do
@@ -21,6 +20,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "faker"
   gem "annotate"
   gem "web-console"
   gem "pry-rails"
