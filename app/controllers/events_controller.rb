@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
-  before_action :authenticate_creator, only: %i[edit update]
+  before_action :authenticate_host, only: %i[edit update]
   before_action :set_event, only: %i[show edit update destroy]
   
   def index
@@ -52,13 +52,6 @@ class EventsController < ApplicationController
     
     def set_event
       @event = Event.find(params[:id])
-    end
-
-    def authenticate_creator
-      event = Event.find(params[:id])
-      unless current_user == event.host
-        redirect_to root_path, notice: "Not authorized to edit this event"
-      end
     end
 
     def event_params

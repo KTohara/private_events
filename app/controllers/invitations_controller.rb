@@ -1,10 +1,13 @@
 class InvitationsController < ApplicationController
   before_action :authenticate_user!
+  before_action :authenticate_host, only: [:search]
   before_action :set_invite, only: %i[update destroy]
   before_action :set_event, only: %i[destroy search]
   
   def index
     @invites = Invitation.includes(event: [:host]).where(attendee: current_user)
+      #else
+    redirect_to user_invitations_path(current_user), notice: "These aren't the invitations you're looking for..."
   end
 
   def create
@@ -20,8 +23,8 @@ class InvitationsController < ApplicationController
   end
 
   def update
-    @invite.status = 'declined' if declined?
-    @invite.status = 'accepted' if accepted?
+    @invite.status = 'declined' if params[:commit] == 'Decline'
+    @invite.status = 'accepted' if params[:commit] == 'Accept'
 
     if @invite.update(invite_params)
       redirect_to user_invitations_path(current_user), notice: "You status has been updated."
@@ -53,19 +56,17 @@ class InvitationsController < ApplicationController
       params.require(:invitation).permit(:attendee_id, :event_id, :status)
     end
 
+    def authenticate_user_invites
+      unless current_user == User.find(params[:user_id])
+        redirect_back_or_to root_path, notice: "These aren't the invitations you're looking for..."
+      end
+    end
+
     def set_invite
       @invite = Invitation.find(params[:id])
     end
 
     def set_event
       @event = Event.find(params[:event_id])
-    end
-
-    def declined?
-      params[:commit] == 'Decline'
-    end
-
-    def accepted?
-      params[:commit] == 'Accept'
     end
 end

@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   #   get "users", to: "devise/sessions#new"
   # end
 
-  devise_for :users
   
   resources :users, only: %i[show] do
     resources :invitations, only: [:index]
@@ -16,6 +15,7 @@ Rails.application.routes.draw do
     resources :invitations, only: %i[create destroy]
     get 'search', to: 'invitations#search', as: 'invitations_search'
   end
-
+  
+  devise_for :users
   resources :invitations, only: %i[update]
 end
