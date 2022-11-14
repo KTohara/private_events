@@ -26,6 +26,8 @@ class User < ApplicationRecord
   has_many :invitations, foreign_key: :attendee_id, dependent: :destroy, inverse_of: :attendee
   has_many :attending_events, through: :invitations, source: :event
 
+  validates :username, length: { in: 3..15 }
+
   scope :new_attendees, -> event { joins(:invitations)
     .where(invitations: { id: event.id })
     .where.not(invitations: { status: :accepted }) }
