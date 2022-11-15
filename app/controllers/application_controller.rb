@@ -14,7 +14,8 @@ class ApplicationController < ActionController::Base
     end
 
     def authenticate_host
-      event_host = Event.find(params[:event_id]).host
+      params_id = controller_name == 'events' ? params[:id] : params[:event_id]
+      event_host = Event.find(params_id).host
       unless current_user == event_host
         redirect_back_or_to root_path, notice: "These aren't the invitations you're looking for..."
       end
